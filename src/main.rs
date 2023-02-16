@@ -10,7 +10,7 @@ fn main() {
     println!("{}","type \"exit\" to close the program\n".green());
 
     loop {
-        print!("{}","> ".green().bold());
+        print!("{}","> ".bold());
         std::io::stdout().flush().unwrap();
 
         let input = {
@@ -24,6 +24,6 @@ fn main() {
         }
 
         expr::eval(&input);
-        println!("{}", input);
+        //println!("{}", input);
     }
 }
