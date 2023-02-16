@@ -44,4 +44,5 @@ fn error_print(expr_vec: &Vec<char>, index: usize, error: &str) {
     println!("{arrow:>index$}", arrow = "^".red(), index = index + 1);
     println!("{arrow:>index$}", arrow = "|".red(), index = index + 1);
     println!("{error:>index$}", error = error.red(), index = index + error.len());
+    println!("");
 }

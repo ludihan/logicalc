@@ -5,7 +5,7 @@ use colored::*;
 mod expr;
 
 fn main() {
-    println!("{}","logic-calc (2023-2023) [github.com/ludihan/]".green().bold().italic());
+    println!("{}","logic-calc (2023-2023) [github.com/ludihan/logic-calc]".green().bold().italic());
     println!("{}","operations: [~][^][v][>][=]".green());
     println!("{}","type \"exit\" to close the program\n".green());
 
