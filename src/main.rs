@@ -1,21 +1,29 @@
+use colored::*;
 use std::io;
 use std::io::Write;
-use colored::*;
 
 mod expr;
 
 fn main() {
-    println!("{}","logic-calc (2023-2023) [github.com/ludihan/logic-calc]".green().bold().italic());
-    println!("{}","operations: [~][^][v][>][=]".green());
-    println!("{}","type \"exit\" to close the program\n".green());
+    println!(
+        "{}",
+        "logic-calc (2023-2023) [github.com/ludihan/logic-calc]"
+            .green()
+            .bold()
+            .italic()
+    );
+    println!("{}", "operations: [~][^][v][>][=]".green());
+    println!("{}", "type \"exit\" to close the program\n".green());
 
     loop {
-        print!("{}","> ".bold());
+        print!("{}", "> ".bold());
         std::io::stdout().flush().unwrap();
 
         let input = {
             let mut input = String::new();
-            io::stdin().read_line(&mut input).expect("Failed to read line");
+            io::stdin()
+                .read_line(&mut input)
+                .expect("Failed to read line");
             input
         };
 
