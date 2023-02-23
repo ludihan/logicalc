@@ -7,7 +7,7 @@ mod expr;
 fn main() {
     println!(
         "{}",
-        "logic-calc (2023-2023) [github.com/ludihan/logic-calc]"
+        "logicalc (2023-2023) [github.com/ludihan/logicalc]"
             .green()
             .bold()
             .italic()
