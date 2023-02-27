@@ -32,6 +32,5 @@ fn main() {
         }
 
         expr::eval(&input);
-        //println!("{}", input);
     }
 }

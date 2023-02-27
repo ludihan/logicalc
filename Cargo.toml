@@ -8,4 +8,4 @@ edition = "2021"
 [dependencies]
 colored = "2.0.0"
 ascii_table = "4.0.2"
-rustyline = "5.0.2"
+rustyline = "11.0.0"

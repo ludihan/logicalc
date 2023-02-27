@@ -5,38 +5,87 @@ pub fn eval(expr: &str) {
         let expr_string: String = expr.split_whitespace().collect();
         expr_string.chars().collect()
     };
-    semantic_check(&expr_vec);
+
+    syntax_check(&expr_vec);
 }
 
-fn semantic_check(expr_vec: &Vec<char>) -> bool {
+fn syntax_check(expr_vec: &Vec<char>) {
     println!("{:?}", expr_vec);
+    let mut opened_parenthesis = 0;
+
+    if expr_vec[expr_vec.len() - 1] == '~'
+        || expr_vec[expr_vec.len() - 1] == '^'
+        || expr_vec[expr_vec.len() - 1] == 'v'
+        || expr_vec[expr_vec.len() - 1] == '>'
+        || expr_vec[expr_vec.len() - 1] == '='
+        || expr_vec[expr_vec.len() - 1] == '('
+    {
+        error_print(expr_vec, expr_vec.len(), "syntax error");
+    }
+
     for index in 0..expr_vec.len() {
         match expr_vec[index] {
-            char if char.is_alphabetic() => {}
-
-            '~' => {}
-
-            '^' => {}
-
-            'v' => {}
-
-            '>' => {}
-
-            '=' => {}
-
-            '(' => match semantic_check(&expr_vec[index + 1..].to_owned()) {
-                true => continue,
-                false => error_print(expr_vec, index, "Missing ending parenthesis"),
+            char if char.is_ascii_uppercase() => match expr_vec[index - 1] {
+                '~' | '^' | 'v' | '>' | '=' | '(' => continue,
+                ')' if opened_parenthesis != 0 => continue,
+                _ => error_print(expr_vec, index, "syntax error"),
             },
 
-            ')' => {
-                return true;
+            '~' => match expr_vec[index - 1] {
+                '~' | '^' | 'v' | '>' | '=' => continue,
+                _ => error_print(expr_vec, index, "syntax error"),
+            },
+
+            '^' => match expr_vec[index - 1] {
+                previous_char if previous_char.is_ascii_uppercase() => continue,
+                _ => error_print(expr_vec, index, "syntax error"),
+            },
+
+            'v' => match expr_vec[index - 1] {
+                previous_char if previous_char.is_ascii_uppercase() => continue,
+                _ => error_print(expr_vec, index, "syntax error"),
+            },
+
+            '>' => match expr_vec[index - 1] {
+                previous_char if previous_char.is_ascii_uppercase() => continue,
+                _ => error_print(expr_vec, index, "syntax error"),
+            },
+
+            '=' => match expr_vec[index - 1] {
+                previous_char if previous_char.is_ascii_uppercase() => continue,
+                _ => error_print(expr_vec, index, "syntax error"),
+            },
+
+            '(' => match expr_vec[index - 1] {
+                '~' | '^' | 'v' | '>' | '=' => {
+                    opened_parenthesis += 1;
+                    continue;
+                }
+                _ => error_print(expr_vec, index, "syntax error"),
+            },
+
+            ')' => match expr_vec[index - 1] {
+                previous_char if previous_char.is_ascii_uppercase() || opened_parenthesis != 0 => {
+                    opened_parenthesis -= 1;
+                    continue;
+                }
+                _ => error_print(expr_vec, index, "syntax error"),
+            },
+
+            _ => {
+                error_print(expr_vec, index, "illegal symbol");
+                break;
             }
-            _ => error_print(expr_vec, index, "Invalid symbol"),
         }
     }
-    false
+    expr_slicer(expr_vec);
 }
+
+fn expr_slicer(expr_vec: &Vec<char>) {
+    let mut vec: Vec<Vec<char>> = Vec::new();
+}
+
+fn expr_evaluator(expr_vec: &Vec<char>) {}
 
 fn error_print(expr_vec: &[char], index: usize, error: &str) {
     println!();
