@@ -15,6 +15,7 @@ fn syntax_check(logic_vec: &Vec<char>) {
     // first element
     match logic_vec[0] {
         '(' => opened_parenthesis += 1,
+        '~' => (),
         char if char.is_ascii_uppercase() => (),
         _ => {
             error_print(&logic_vec, 0, "syntax error");
