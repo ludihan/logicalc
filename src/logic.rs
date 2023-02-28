@@ -209,12 +209,13 @@ fn logic_slicer(logic_vec: Vec<char>) {
     }
 
     vec_of_vecs.push(logic_vec);
-
+    
     logic_eval(vec_of_vecs);
 }
 
 fn logic_eval(vec_of_vecs: Vec<Vec<char>>) {
-    println!("{:#?}", vec_of_vecs);
+    //TODO
+    println!("vec_of_vecs: {:#?}", vec_of_vecs);
 }
 
 fn error_print(logic_vec: &[char], index: usize, error: &str) {
