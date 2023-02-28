@@ -1,9 +1,9 @@
-//use std::io;
-//use std::io::Write;
 use colored::*;
 use rustyline::error::ReadlineError;
 use rustyline::{DefaultEditor, Result};
+
 mod logic;
+
 fn main() -> Result<()> {
     println!(
         "{}",
@@ -21,23 +21,23 @@ fn main() -> Result<()> {
     if rl.load_history("history.txt").is_err() {
         println!("No previous history.");
     }
+
     loop {
         let readline = rl.readline(">> ");
         match readline {
             Ok(line) => {
-                rl.add_history_entry(line.as_str());
+                rl.add_history_entry(line.as_str()).unwrap();
                 if line.trim().eq_ignore_ascii_case("exit") {
                     break;
                 }
                 logic::from(&line);
-                //println!("Line: {}", line);
             }
             Err(ReadlineError::Interrupted) => {
-                println!("CTRL-C pressed. bye");
+                println!("CTRL-C pressed, bye");
                 break;
             }
             Err(ReadlineError::Eof) => {
-                println!("CTRL-D pressed. bye");
+                println!("CTRL-D pressed, bye");
                 break;
             }
             Err(err) => {
@@ -46,28 +46,8 @@ fn main() -> Result<()> {
             }
         }
     }
+
     #[cfg(feature = "with-file-history")]
     rl.save_history("history.txt");
     Ok(())
-
-    /*
-    loop {
-        print!("{}", "> ".bold());
-        std::io::stdout().flush().unwrap();
-
-        let input = {
-            let mut input = String::new();
-            io::stdin()
-                .read_line(&mut input)
-                .expect("Failed to read line");
-            input
-        };
-
-        if input.trim().eq_ignore_ascii_case("exit") {
-            break;
-        }
-
-        logic::from(&input);
-    }
-    */
 }
