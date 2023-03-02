@@ -2,7 +2,7 @@ use colored::*;
 use rustyline::error::ReadlineError;
 use rustyline::{DefaultEditor, Result};
 
-mod newlogic;
+mod logic;
 
 fn main() -> Result<()> {
     println!(
@@ -30,7 +30,7 @@ fn main() -> Result<()> {
                 if line.trim().eq_ignore_ascii_case("exit") {
                     break;
                 }
-                newlogic::from(&line);
+                logic::from(&line);
             }
             Err(ReadlineError::Interrupted) => {
                 println!("CTRL-C pressed, bye");
